@@ -1,4 +1,4 @@
-const canvas = document.getElementById("canvas");
+const canvas = document.querySelector("#canvas");
 const ctx = canvas.getContext("2d");
 
 resize();
@@ -19,19 +19,66 @@ $(document).ready(function () {
   ctx.lineCap = "round";
   ctx.fillStyle = "black";
   ctx.strokeStyle = "black";
+  let fontSize = "20";
+  let font = "Serif";
+  ctx.font = `${fontSize}px ${font}`;
 
-  $(".toggle").on("click", function () {
-    $(".toggle").removeClass("active");
+  $("#canvas").on("resize", resize);
+
+  $(".tool").on("click", function () {
+    $(".tool").removeClass("active");
     $(this).addClass("active");
-  });
-
-  $("button").on("click", function () {
     mode = $(this).attr("id");
     if (mode == "text") canvas.style.cursor = "text";
   });
 
-  document.addEventListener("mousemove", draw);
-  document.addEventListener("mousedown", function (e) {
+  $("#color").on("input", function () {
+    ctx.fillStyle = $(this)[0].value;
+    ctx.strokeStyle = $(this)[0].value;
+  });
+
+  $("#fonts").on("input", function () {
+    font = $(this)[0].value;
+    ctx.font = `${fontSize}px ${font}`;
+  });
+
+  $("#fontSize").on("input", function () {
+    fontSize = $(this)[0].value;
+    ctx.font = `${fontSize}px ${font}`;
+  });
+
+  $("#brushSize").on("input", function () {
+    ctx.lineWidth = $(this)[0].value;
+  });
+
+  $("#clear").on("click", function () {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  });
+
+  $("#upload").on("change", function (e) {
+    if (e.target.files) {
+      let imageFile = e.target.files[0];
+      var reader = new FileReader();
+      reader.readAsDataURL(imageFile);
+      reader.onloadend = function (e) {
+        var myImage = new Image();
+        myImage.src = e.target.result;
+        myImage.onload = function () {
+          ctx.drawImage(myImage, 0, 0);
+        };
+      };
+    }
+  });
+
+  $("#download").on("click", function () {
+    const img = canvas.toDataURL("image/png");
+    const download = document.querySelector(".download");
+    download.setAttribute("href", img);
+  });
+
+  $(document).on("mouseenter", setPosition);
+
+  $(document).on("mousedown", function (e) {
     tmpCanvas = ctx.getImageData(0, 0, canvas.width, canvas.height);
     startPos = {
       x: e.clientX,
@@ -39,24 +86,18 @@ $(document).ready(function () {
     };
     setPosition(e);
   });
-  document.addEventListener("mouseenter", setPosition);
-  document.addEventListener("mouseup", function () {
+
+  $(document).on("mouseup", function () {
     if (mode == "text") canvas.style.cursor = "text";
     else canvas.style.cursor = "default";
     tmpCanvas = ctx.getImageData(0, 0, canvas.width, canvas.height);
   });
 
-  document.getElementById("clear").addEventListener("click", function () {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-  });
+  $(document).on("mousemove", draw);
 
   function setPosition(e) {
     curPos.x = e.clientX;
     curPos.y = e.clientY - 100;
-  }
-
-  function cal_radius(x, y) {
-    return Math.sqrt(x * x + y * y);
   }
 
   function draw(e) {
@@ -76,7 +117,7 @@ $(document).ready(function () {
     } else if (mode === "circle") {
       ctx.putImageData(tmpCanvas, 0, 0);
       setPosition(e);
-      let r = cal_radius(curPos.x - startPos.x, curPos.y - startPos.y);
+      let r = Math.sqrt(Math.pow(curPos.x - startPos.x, 2) + Math.pow(curPos.y - startPos.y, 2));
       ctx.beginPath();
       ctx.arc((curPos.x + startPos.x) / 2, (curPos.y + startPos.y) / 2, r / 2, 0, 2 * Math.PI);
       ctx.stroke();
@@ -99,7 +140,7 @@ $(document).ready(function () {
       ctx.rect(startPos.x, startPos.y, curPos.x - startPos.x, curPos.y - startPos.y);
       ctx.stroke();
       ctx.closePath();
-    } else if (mode === "stroke") {
+    } else if (mode === "line") {
       ctx.putImageData(tmpCanvas, 0, 0);
       ctx.beginPath();
       setPosition(e);

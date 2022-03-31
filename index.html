@@ -6,50 +6,89 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="robots" content="index, follow" />
     <meta name="description" content="A web painter" />
-    <title>Painter</title>
+    <title>MiniPainter</title>
     <link rel="stylesheet" href="./styles/style.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   </head>
   <body>
     <div class="nav">
-      <div class="logo"><img src="./icon/logo.png" alt="logo" /></div>
+      <div class="logo">
+        <a href="https://gitlab.com/ChangChiTW" target="_blank">
+          <img src="./icon/logo.png" alt="logo" />
+        </a>
+      </div>
       <div class="tools">
         <div>
-          <button class="toggle active" id="pencil">
+          <button class="tool active" id="pencil">
             <img src="./icon/pencil.png" alt="pencil" />
           </button>
         </div>
         <div>
-          <button class="toggle" id="eraser">
+          <input type="color" id="color" />
+        </div>
+        <div>
+          <button class="tool" id="eraser">
             <img src="./icon/eraser.png" alt="eraser" />
           </button>
         </div>
         <div>
-          <button class="toggle" id="text">
+          <button class="tool" id="text">
             <img src="./icon/text.png" alt="text" />
+          </button>
+        </div>
+        <div id="control">
+          <div>
+            <label for="fonts">fonts</label>
+            <select id="fonts">
+              <option value="Serif">Serif</option>
+              <option value="Sans-serif">Sans-serif</option>
+              <option value="Monospace">Monospace</option>
+              <option value="Cursive">Cursive</option>
+              <option value="Fantasy">Fantasy</option>
+            </select>
+          </div>
+          <div>
+            <label for="fontSize">font size</label>
+            <input type="number" id="fontSize" min="1" max="100" step="4" value="20" />
+          </div>
+          <div id="bar">
+            <input type="range" id="brushSize" min="0" max="100" step="1" value="10" />
+          </div>
+        </div>
+        <div>
+          <img src="./icon/divider.png" alt="divider" />
+        </div>
+        <div>
+          <button class="tool" id="circle">
+            <img src="./icon/circle.png" alt="circle" />
+          </button>
+        </div>
+        <div>
+          <button class="tool" id="triangle">
+            <img src="./icon/triangle.png" alt="triangle" />
+          </button>
+        </div>
+        <div>
+          <button class="tool" id="rectangle">
+            <img src="./icon/rectangle.png" alt="rectangle" />
+          </button>
+        </div>
+        <div>
+          <button class="tool" id="line">
+            <img src="./icon/line.png" alt="line" />
           </button>
         </div>
         <div>
           <img src="./icon/divider.png" alt="divider" />
         </div>
         <div>
-          <button class="toggle" id="circle">
-            <img src="./icon/circle.png" alt="circle" />
+          <button id="undo">
+            <img src="./icon/undo.png" alt="undo" />
           </button>
         </div>
         <div>
-          <button class="toggle" id="triangle">
-            <img src="./icon/triangle.png" alt="triangle" />
-          </button>
-        </div>
-        <div>
-          <button class="toggle" id="rectangle">
-            <img src="./icon/rectangle.png" alt="rectangle" />
-          </button>
-        </div>
-        <div>
-          <button class="toggle" id="stroke">
-            <img src="./icon/stroke.png" alt="stroke" />
+          <button id="redo">
+            <img src="./icon/redo.png" alt="redo" />
           </button>
         </div>
         <div>
@@ -61,14 +100,17 @@
           </button>
         </div>
         <div>
-          <button id="upload">
+          <label id="upload" style="cursor: pointer">
             <img src="./icon/upload.png" alt="upload" />
-          </button>
+            <input type="file" id="upload" accept="image/*" style="display: none" />
+          </label>
         </div>
         <div>
-          <button id="download">
-            <img src="./icon/download.png" alt="download" />
-          </button>
+          <a class="download" download="canvas.png">
+            <button id="download">
+              <img src="./icon/download.png" alt="download" />
+            </button>
+          </a>
         </div>
       </div>
     </div>
