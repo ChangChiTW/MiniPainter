@@ -15,6 +15,9 @@ $(document).ready(function () {
   let curPos = { x: 0, y: 0 };
   let startPos = { x: 0, y: 0 };
   let tmpCanvas;
+  let history = [];
+  let step = -1;
+
   ctx.lineWidth = 10;
   ctx.lineCap = "round";
   ctx.fillStyle = "black";
@@ -51,7 +54,22 @@ $(document).ready(function () {
     ctx.lineWidth = $(this)[0].value;
   });
 
+  $("#undo").on("click", function () {
+    if (step > 0) {
+      step--;
+      ctx.putImageData(history[step], 0, 0);
+    }
+  });
+
+  $("#redo").on("click", function () {
+    if (step < history.length - 1) {
+      step++;
+      ctx.putImageData(history[step], 0, 0);
+    }
+  });
+
   $("#clear").on("click", function () {
+    state();
     ctx.clearRect(0, 0, canvas.width, canvas.height);
   });
 
@@ -76,9 +94,9 @@ $(document).ready(function () {
     download.setAttribute("href", img);
   });
 
-  $(document).on("mouseenter", setPosition);
+  $(canvas).on("mouseenter", setPosition);
 
-  $(document).on("mousedown", function (e) {
+  $(canvas).on("mousedown", function (e) {
     tmpCanvas = ctx.getImageData(0, 0, canvas.width, canvas.height);
     startPos = {
       x: e.clientX,
@@ -87,17 +105,28 @@ $(document).ready(function () {
     setPosition(e);
   });
 
-  $(document).on("mouseup", function () {
+  $(canvas).on("mouseup", function () {
     if (mode == "text") canvas.style.cursor = "text";
     else canvas.style.cursor = "default";
+
     tmpCanvas = ctx.getImageData(0, 0, canvas.width, canvas.height);
+
+    state();
   });
 
-  $(document).on("mousemove", draw);
+  $(canvas).on("mousemove", draw);
 
   function setPosition(e) {
     curPos.x = e.clientX;
     curPos.y = e.clientY - 100;
+  }
+
+  function state() {
+    step++;
+    if (step < history.length) {
+      history.length = step;
+    }
+    history.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
   }
 
   function draw(e) {
