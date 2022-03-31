@@ -89,6 +89,21 @@ $(document).ready(function () {
       ctx.lineTo(curPos.x, curPos.y);
       ctx.stroke();
       ctx.closePath();
+    } else if (mode === "rectangle") {
+      ctx.putImageData(tmpCanvas, 0, 0);
+      ctx.beginPath();
+      setPosition(e);
+      ctx.rect(startPos.x, startPos.y, curPos.x - startPos.x, curPos.y - startPos.y);
+      ctx.stroke();
+      ctx.closePath();
+    } else if (mode === "stroke") {
+      ctx.putImageData(tmpCanvas, 0, 0);
+      ctx.beginPath();
+      setPosition(e);
+      ctx.moveTo(startPos.x, startPos.y);
+      ctx.lineTo(curPos.x, curPos.y);
+      ctx.stroke();
+      ctx.closePath();
     }
   }
 });
