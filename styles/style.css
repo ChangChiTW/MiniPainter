@@ -11,6 +11,14 @@ button {
   cursor: pointer;
 }
 
+button.active,
+button:hover {
+  width: 5vw;
+  height: 5vw;
+  border-radius: 10px;
+  background-color: #2b7a78;
+}
+
 .nav {
   display: -webkit-box;
   display: -ms-flexbox;

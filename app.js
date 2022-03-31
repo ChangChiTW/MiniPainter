@@ -10,6 +10,11 @@ function resize() {
 
 window.addEventListener("resize", resize);
 
+$(".toggle").on("click", function () {
+  $(".toggle").removeClass("active");
+  $(this).addClass("active");
+});
+
 document.addEventListener("mousemove", draw);
 document.addEventListener("mousedown", setPosition);
 document.addEventListener("mouseenter", setPosition);
