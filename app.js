@@ -27,6 +27,7 @@ $(document).ready(function () {
 
   $("button").on("click", function () {
     mode = $(this).attr("id");
+    if (mode == "text") canvas.style.cursor = "text";
   });
 
   document.addEventListener("mousemove", draw);
@@ -40,6 +41,8 @@ $(document).ready(function () {
   });
   document.addEventListener("mouseenter", setPosition);
   document.addEventListener("mouseup", function () {
+    if (mode == "text") canvas.style.cursor = "text";
+    else canvas.style.cursor = "default";
     tmpCanvas = ctx.getImageData(0, 0, canvas.width, canvas.height);
   });
 
@@ -58,7 +61,7 @@ $(document).ready(function () {
 
   function draw(e) {
     if (e.buttons !== 1) return;
-
+    canvas.style.cursor = "crosshair";
     if (mode === "pencil") {
       ctx.beginPath();
       ctx.moveTo(curPos.x, curPos.y);
