@@ -18,8 +18,8 @@ button {
 
 button.active,
 button.tool:hover {
-  width: 7vh;
-  height: 7vh;
+  width: 70px;
+  height: 70px;
   border-radius: 10px;
   background-color: #2b7a78;
 }
@@ -29,7 +29,7 @@ button.tool:hover {
   justify-content: space-between;
   background-color: #88bdbc;
   width: 100%;
-  height: 10vh;
+  height: 100px;
   padding: 1.25rem 2rem;
 
   #color {

@@ -17,8 +17,11 @@ $(document).ready(function () {
   let tmpCanvas;
   let history = [];
   let step = -1;
+  let hasInput = false;
 
   ctx.lineWidth = 10;
+  ctx.textBaseline = "top";
+  ctx.textAlign = "left";
   ctx.lineCap = "round";
   ctx.fillStyle = "black";
   ctx.strokeStyle = "black";
@@ -103,6 +106,10 @@ $(document).ready(function () {
       y: e.clientY - 100,
     };
     setPosition(e);
+    if (mode == "text") {
+      if (hasInput) return;
+      addInput(e.clientX, e.clientY);
+    }
   });
 
   $(canvas).on("mouseup", function () {
@@ -177,6 +184,34 @@ $(document).ready(function () {
       ctx.lineTo(curPos.x, curPos.y);
       ctx.stroke();
       ctx.closePath();
+    }
+  }
+
+  function addInput(x, y) {
+    const input = document.createElement("input");
+    console.log("Adding input");
+    input.type = "text";
+    input.setAttributeNode(document.createAttribute("Autofocus"));
+    input.style.position = "fixed";
+    input.style.left = x + "px";
+    input.style.top = y + "px";
+    input.style.fontSize = fontSize + "px";
+
+    input.onkeydown = handleEnter;
+
+    document.body.appendChild(input);
+
+    input.focus();
+
+    hasInput = true;
+  }
+
+  function handleEnter(e) {
+    const keyCode = e.keyCode;
+    if (keyCode === 13) {
+      ctx.fillText(this.value, startPos.x, startPos.y);
+      document.body.removeChild(this);
+      hasInput = false;
     }
   }
 });
