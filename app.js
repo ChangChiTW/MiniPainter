@@ -212,6 +212,7 @@ $(document).ready(function () {
       ctx.fillText(this.value, startPos.x, startPos.y);
       document.body.removeChild(this);
       hasInput = false;
+      state();
     }
   }
 });
