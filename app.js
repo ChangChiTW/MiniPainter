@@ -163,9 +163,9 @@ $(document).ready(function () {
       ctx.closePath();
     } else if (mode === "eraser") {
       ctx.beginPath();
-      ctx.moveTo(curPos.x, curPos.y + 40);
+      ctx.moveTo(curPos.x + 10, curPos.y + 40);
       setPosition(e);
-      ctx.lineTo(curPos.x, curPos.y + 40);
+      ctx.lineTo(curPos.x + 10, curPos.y + 40);
       ctx.stroke();
       ctx.closePath();
     } else if (mode === "text") {
