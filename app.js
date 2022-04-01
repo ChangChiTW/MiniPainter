@@ -111,8 +111,10 @@ $(document).ready(function () {
     };
     setPosition(e);
     if (mode == "text") {
-      if (hasInput) return;
-      addInput(e.clientX, e.clientY);
+      if (hasInput) {
+        $("#textInput").remove();
+        hasInput = false;
+      } else addInput(e.clientX, e.clientY);
     }
   });
 
@@ -195,6 +197,7 @@ $(document).ready(function () {
     const input = document.createElement("input");
     input.type = "text";
     input.setAttributeNode(document.createAttribute("Autofocus"));
+    input.setAttribute("id", "textInput");
     input.style.position = "fixed";
     input.style.left = x + "px";
     input.style.top = y + "px";
