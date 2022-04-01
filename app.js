@@ -28,6 +28,7 @@ $(document).ready(function () {
   let fontSize = "20";
   let font = "Serif";
   ctx.font = `${fontSize}px ${font}`;
+  canvas.style.cursor = `url("./icon/cursor/${mode}.png"), auto`;
 
   $("#canvas").on("resize", resize);
 
@@ -36,6 +37,9 @@ $(document).ready(function () {
     $(this).addClass("active");
     mode = $(this).attr("id");
     if (mode == "text") canvas.style.cursor = "text";
+    else canvas.style.cursor = `url("./icon/cursor/${mode}.png"), auto`;
+    if (mode == "eraser") ctx.globalCompositeOperation = "destination-out";
+    else ctx.globalCompositeOperation = "source-over";
   });
 
   $("#color").on("input", function () {
@@ -113,9 +117,6 @@ $(document).ready(function () {
   });
 
   $(canvas).on("mouseup", function () {
-    if (mode == "text") canvas.style.cursor = "text";
-    else canvas.style.cursor = "default";
-
     tmpCanvas = ctx.getImageData(0, 0, canvas.width, canvas.height);
 
     state();
@@ -138,17 +139,20 @@ $(document).ready(function () {
 
   function draw(e) {
     if (e.buttons !== 1) return;
-    canvas.style.cursor = "crosshair";
     if (mode === "pencil") {
       ctx.beginPath();
-      ctx.moveTo(curPos.x, curPos.y);
+      ctx.moveTo(curPos.x, curPos.y + 40);
       setPosition(e);
-      ctx.lineTo(curPos.x, curPos.y);
+      ctx.lineTo(curPos.x, curPos.y + 40);
       ctx.stroke();
       ctx.closePath();
     } else if (mode === "eraser") {
+      ctx.beginPath();
+      ctx.moveTo(curPos.x, curPos.y + 40);
       setPosition(e);
-      ctx.clearRect(curPos.x, curPos.y, ctx.lineWidth * 1.5, ctx.lineWidth * 1.5);
+      ctx.lineTo(curPos.x, curPos.y + 40);
+      ctx.stroke();
+      ctx.closePath();
     } else if (mode === "text") {
     } else if (mode === "circle") {
       ctx.putImageData(tmpCanvas, 0, 0);
@@ -189,7 +193,6 @@ $(document).ready(function () {
 
   function addInput(x, y) {
     const input = document.createElement("input");
-    console.log("Adding input");
     input.type = "text";
     input.setAttributeNode(document.createAttribute("Autofocus"));
     input.style.position = "fixed";
@@ -209,7 +212,7 @@ $(document).ready(function () {
   function handleEnter(e) {
     const keyCode = e.keyCode;
     if (keyCode === 13) {
-      ctx.fillText(this.value, startPos.x, startPos.y);
+      ctx.fillText(this.value, curPos.x, curPos.y);
       document.body.removeChild(this);
       hasInput = false;
       state();
