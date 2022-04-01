@@ -18,6 +18,7 @@ button {
 }
 
 button.active,
+#fill:hover,
 button.tool:hover {
   width: 70px;
   height: 70px;

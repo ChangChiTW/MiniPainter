@@ -12,6 +12,7 @@ window.addEventListener("resize", resize);
 
 $(document).ready(function () {
   let mode = "pencil";
+  let fill = false;
   let curPos = { x: 0, y: 0 };
   let startPos = { x: 0, y: 0 };
   let tmpCanvas;
@@ -59,6 +60,16 @@ $(document).ready(function () {
 
   $("#brushSize").on("input", function () {
     ctx.lineWidth = $(this)[0].value;
+  });
+
+  $("#fill").on("click", function () {
+    if ($(this)[0].className) {
+      $(this).removeClass("active");
+      fill = false;
+    } else {
+      $(this).addClass("active");
+      fill = true;
+    }
   });
 
   $("#undo").on("click", function () {
@@ -164,7 +175,8 @@ $(document).ready(function () {
       let r = Math.sqrt(Math.pow(curPos.x - startPos.x, 2) + Math.pow(curPos.y - startPos.y, 2));
       ctx.beginPath();
       ctx.arc((curPos.x + startPos.x) / 2, (curPos.y + startPos.y) / 2, r / 2, 0, 2 * Math.PI);
-      ctx.stroke();
+      if (fill) ctx.fill();
+      else ctx.stroke();
       ctx.closePath();
     } else if (mode === "triangle") {
       ctx.putImageData(tmpCanvas, 0, 0);
@@ -175,14 +187,16 @@ $(document).ready(function () {
       ctx.lineTo(2 * startPos.x - curPos.x, curPos.y);
       ctx.lineTo(startPos.x, startPos.y);
       ctx.lineTo(curPos.x, curPos.y);
-      ctx.stroke();
+      if (fill) ctx.fill();
+      else ctx.stroke();
       ctx.closePath();
     } else if (mode === "rectangle") {
       ctx.putImageData(tmpCanvas, 0, 0);
       ctx.beginPath();
       setPosition(e);
       ctx.rect(startPos.x, startPos.y, curPos.x - startPos.x, curPos.y - startPos.y);
-      ctx.stroke();
+      if (fill) ctx.fill();
+      else ctx.stroke();
       ctx.closePath();
     } else if (mode === "line") {
       ctx.putImageData(tmpCanvas, 0, 0);
