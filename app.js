@@ -97,8 +97,10 @@ $(document).ready(function () {
 
   $("#download").on("click", function () {
     const img = canvas.toDataURL("image/png");
-    const download = document.querySelector(".download");
-    download.setAttribute("href", img);
+    const a = document.createElement("a");
+    a.download = "myImage.png";
+    a.href = img;
+    a.click();
   });
 
   $(canvas).on("mouseenter", setPosition);

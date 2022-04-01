@@ -54,9 +54,9 @@ button.tool:hover {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  width: 130px;
+  width: 140px;
   height: 60px;
-  padding-top: 0.3rem;
+  font-size: 1.25rem;
 }
 
 .nav .logo,
@@ -80,9 +80,5 @@ button.tool:hover {
   -ms-flex-pack: distribute;
       justify-content: space-around;
   width: 60%;
-}
-
-canvas {
-  cursor: url("https://i.imgur.com/kAOWaEO.png"), auto;
 }
 /*# sourceMappingURL=style.css.map */
