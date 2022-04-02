@@ -18,9 +18,12 @@
 | Image tool             | 5%        | Y         |
 | Download               | 5%        | Y         |
 
-| **Other useful widgets** | **Score** | **Check** |
-|:------------------------ |:---------:|:---------:|
-| Name of widgets          | 1~5%      | N         |
+| **Other useful widgets**                               | **Score** | **Check** |
+|:------------------------------------------------------ |:---------:|:---------:|
+| Line tool                                              | 1~5%      | Y         |
+| Draw different shape with fill and hollow              | 1~5%      | Y         |
+| Show active mode                                       | 1~5%      | Y         |
+| In text mode click other place to rebulid a text input | 1~5%      | Y         |
 
 ---
 
@@ -30,26 +33,16 @@
 
 ### Function description
 
-* Line tool
+- Line tool
 
-* Draw different shape with fill and hollow
+- Draw different shape with fill and hollow
 
-* Show active mode with different color
+- Show active mode with different color
 
-* In text mode click other place to rebulid a text input
+- In text mode click other place to rebulid a text input
 
-* Clean design
+- Clean design
 
-### Gitlab page link
+### Web page link
 
     your web page URL.
-
-### Others (Optional)
-
-    Anythinh you want to say to TAs.
-
-<style>
-table th{
-    width: 100%;
-}
-</style>
