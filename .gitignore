@@ -24,3 +24,6 @@ dist-ssr
 *.sw?
 *.map
 *.scss
+firebase.json
+.firebaserc
+.firebase

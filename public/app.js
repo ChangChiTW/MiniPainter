@@ -5,7 +5,7 @@ resize();
 
 function resize() {
   ctx.canvas.width = window.innerWidth;
-  ctx.canvas.height = window.innerHeight - 100;
+  ctx.canvas.height = window.innerHeight - window.innerWidth * 0.06;
 }
 
 window.addEventListener("resize", resize);
@@ -120,7 +120,7 @@ $(document).ready(function () {
     tmpCanvas = ctx.getImageData(0, 0, canvas.width, canvas.height);
     startPos = {
       x: e.clientX,
-      y: e.clientY - 100,
+      y: e.clientY - window.innerWidth * 0.06,
     };
     setPosition(e);
     if (mode == "text") {
@@ -141,7 +141,7 @@ $(document).ready(function () {
 
   function setPosition(e) {
     curPos.x = e.clientX;
-    curPos.y = e.clientY - 100;
+    curPos.y = e.clientY - window.innerWidth * 0.06;
   }
 
   function state() {
@@ -163,9 +163,9 @@ $(document).ready(function () {
       ctx.closePath();
     } else if (mode === "eraser") {
       ctx.beginPath();
-      ctx.moveTo(curPos.x + 10, curPos.y + 40);
+      ctx.moveTo(curPos.x + 5, curPos.y + 35);
       setPosition(e);
-      ctx.lineTo(curPos.x + 10, curPos.y + 40);
+      ctx.lineTo(curPos.x + 5, curPos.y + 35);
       ctx.stroke();
       ctx.closePath();
     } else if (mode === "text") {
