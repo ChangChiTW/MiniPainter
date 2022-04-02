@@ -43,6 +43,8 @@
 
 - Clean design
 
+- Basic RWD
+
 ### Web page link
 
     your web page URL.
