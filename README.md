@@ -26,7 +26,7 @@
 
 ### How to use
 
-![HowToUse.png](/Users/chi/Downloads/HowToUse.png)
+![](https://i.imgur.com/tE0zjvt.png)
 
 ### Function description
 
