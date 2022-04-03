@@ -33,9 +33,9 @@
 
 ### Function description
 
-- Line tool
+- Line tool - Draw a line
 
-- Draw different shape with fill and hollow
+- Fill or not - Draw different shape with fill and hollow
 
 - Show active mode with different color
 
@@ -47,4 +47,4 @@
 
 ### Web page link
 
-    your web page URL.
+    https://ss-minipainter.web.app
